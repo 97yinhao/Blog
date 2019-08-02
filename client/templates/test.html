@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <script src="/static/js/jquery.min.js"></script>
+</head>
+<body>
+    <p>这是test页面</p>
+</body>
+<script>
+
+
+    // 所有dom树加载完毕后执行 匿名函数
+    $(function () {
+        $.ajax({
+            type: "get",
+            url: "http://127.0.0.1:8000/v1/users",
+            dataType: "json",
+            success: function (res) {
+                // 开始拼接html
+                var html = '';
+                html += '<table border=1>';
+                html += '<tr>';
+                html += '<td>username</td>';
+                html += '<td>email</td>';
+                html += '</tr>';
+                $.each(res.data, function (i, v) {
+                    html += '<tr>';
+                    html += '<td>' + v.username + '</td>';
+                    html += '<td>' + v.email + '</td>';
+                    html += '</tr>';
+                });
+                $('body').html(html)
+            }
+        })
+    })
+</script>
+</html>
